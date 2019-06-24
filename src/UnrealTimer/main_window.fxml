@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="214.0" prefHeight="316.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button id="btn_exit" layoutX="94.0" layoutY="270.0" mnemonicParsing="false" onAction="#exitButtonClick" text="Exit" />
+      <Label id="shield_timer" fx:id="shieldTimerLabel" alignment="CENTER" layoutX="9.0" layoutY="45.0" prefHeight="64.0" prefWidth="203.0" text="00:00:00" textAlignment="CENTER">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="71.0" layoutY="26.0" text="Time to Shield" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="33.0" layoutY="133.0" prefHeight="17.0" prefWidth="166.0" text="Time to DoubleDamage" textAlignment="CENTER" />
+      <Label id="dd_timer" fx:id="ddTimerLabel" alignment="CENTER" layoutX="14.0" layoutY="154.0" prefHeight="64.0" prefWidth="203.0" text="00:00:00" textAlignment="CENTER">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <Button id="btn_exit" layoutX="76.0" layoutY="231.0" mnemonicParsing="false" onAction="#settingsButtonClick" text="Settings" />
+   </children>
+</AnchorPane>

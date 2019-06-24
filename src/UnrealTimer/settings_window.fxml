@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnrealTimer.SettingsController">
+   <children>
+      <CheckBox layoutX="254.0" layoutY="127.0" mnemonicParsing="false" text="CheckBox" />
+      <Button layoutX="165.0" layoutY="133.0" mnemonicParsing="false" text="Button" />
+   </children>
+</AnchorPane>
