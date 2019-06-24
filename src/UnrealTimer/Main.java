@@ -39,8 +39,10 @@ public class Main extends Application {
             }
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main_window.fxml"));
-            loader.setController(new MainController());
             Pane root = loader.load();
+            // controller assign in main_window.fxml tag fx:controller
+            MainController controller = loader.getController();
+            controller.initComponents();
 
             primaryStage.setTitle("Unreal Timer");
             primaryStage.setResizable(false);

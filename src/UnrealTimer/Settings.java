@@ -1,8 +1,6 @@
 package UnrealTimer;
 // Created by Руслан on 23.06.2019.
 
-import org.apache.commons.lang3.StringUtils;
-
 import javax.swing.*;
 
 /**
@@ -13,27 +11,39 @@ public class Settings {
     // shield
     private String shieldStartShorcut;
     private KeyStroke shieldHotKey;
-    private Integer shieldDurationCycle = 15;
-    // double damaged
-    private String doubleDamagedStartShorcut;
-    private KeyStroke doubleDamagedHotKey;
+    private Integer shieldDurationCycle;
+    // double Damage
+    private String doubleDamageStartShorcut;
+    private KeyStroke doubleDamageHotKey;
+    private Integer doubleDamageDurationCycle;
 
     public Settings() {
+        this("Q", "E");
     }
 
     /**
      * Init with user keys
      *
-     * @param shieldKey        - key for activating count for Shield <pre>Q</pre>
-     * @param doubleDamagedKey - key for activating count for Double Damage <pre>E</pre>
+     * @param shieldKey       - key for activating count for Shield <pre>Q</pre>
+     * @param doubleDamageKey - key for activating count for Double Damage <pre>E</pre>
      */
-    public Settings(String shieldKey, String doubleDamagedKey) {
-        if (StringUtils.isNotBlank(shieldKey)) {
-            initShieldShorcut(shieldKey);
-        }
-        if (StringUtils.isNotBlank(doubleDamagedKey)) {
-            initDoubleDamagedShorcut(doubleDamagedKey);
-        }
+    public Settings(String shieldKey, String doubleDamageKey) {
+        this(shieldKey, 60, doubleDamageKey, 60);
+    }
+
+    /**
+     * Init with user keys and timers
+     *
+     * @param shieldKey         - key for activating count for Shield <pre>Q</pre>
+     * @param shieldCycle       - this is the time before shield respawn <pre>60</pre>
+     * @param doubleDamageKey   - key for activating count for Double Damage <pre>E</pre>
+     * @param doubleDamageCycle - this is the time before shield respawn <pre>60</pre>
+     */
+    public Settings(String shieldKey, Integer shieldCycle, String doubleDamageKey, Integer doubleDamageCycle) {
+        initShieldShorcut(shieldKey);
+        initDoubleDamageShorcut(doubleDamageKey);
+        this.shieldDurationCycle = shieldCycle;
+        this.doubleDamageDurationCycle = doubleDamageCycle;
     }
 
     private void initShieldShorcut(String key) {
@@ -41,9 +51,9 @@ public class Settings {
         this.shieldHotKey = KeyStroke.getKeyStroke(key);
     }
 
-    private void initDoubleDamagedShorcut(String key) {
-        this.doubleDamagedStartShorcut = key;
-        this.doubleDamagedHotKey = KeyStroke.getKeyStroke(key);
+    private void initDoubleDamageShorcut(String key) {
+        this.doubleDamageStartShorcut = key;
+        this.doubleDamageHotKey = KeyStroke.getKeyStroke(key);
     }
 
     /**
@@ -51,14 +61,14 @@ public class Settings {
      *
      * <pre>
      * default key for Shield is Q
+     * default duration for Shield is 60 sec
+     *
      * default key for Double Damage is E
+     * default duration for Double Damage is 60 sec
      * </pre>
      */
     public Settings load() {
-        // if config not found load default
-        initShieldShorcut("Q");
-        initDoubleDamagedShorcut("E");
-
+        // here will be loading from file and some sort of refresh default values
         return this;
     }
 
@@ -86,17 +96,17 @@ public class Settings {
     }
 
     /**
-     * Return String representation of activation key for Double Damaged timer
+     * Return String representation of activation key for Double Damage timer
      */
-    public String getDoubleDamagedStartShorcut() {
-        return doubleDamagedStartShorcut;
+    public String getDoubleDamageStartShorcut() {
+        return doubleDamageStartShorcut;
     }
 
     /**
-     * Set String representation of activation key for Double Damaged timer
+     * Set String representation of activation key for Double Damage timer
      */
-    public void setDoubleDamagedStartShorcut(String doubleDamagedStartShorcut) {
-        this.doubleDamagedStartShorcut = doubleDamagedStartShorcut;
+    public void setDoubleDamageStartShorcut(String doubleDamageStartShorcut) {
+        this.doubleDamageStartShorcut = doubleDamageStartShorcut;
     }
 
     /**
@@ -114,17 +124,17 @@ public class Settings {
     }
 
     /**
-     * Returns <code>KeyStroke</code> for Double Damaged timer
+     * Returns <code>KeyStroke</code> for Double Damage timer
      */
-    public KeyStroke getDoubleDamagedHotKey() {
-        return doubleDamagedHotKey;
+    public KeyStroke getDoubleDamageHotKey() {
+        return doubleDamageHotKey;
     }
 
     /**
-     * Set <code>KeyStroke</code> for Double Damaged timer
+     * Set <code>KeyStroke</code> for Double Damage timer
      */
-    public void setDoubleDamagedHotKey(KeyStroke doubleDamagedHotKey) {
-        this.doubleDamagedHotKey = doubleDamagedHotKey;
+    public void setDoubleDamageHotKey(KeyStroke doubleDamageHotKey) {
+        this.doubleDamageHotKey = doubleDamageHotKey;
     }
 
     public Integer getShieldDurationCycle() {
@@ -134,4 +144,14 @@ public class Settings {
     public void setShieldDurationCycle(Integer shieldDurationCycle) {
         this.shieldDurationCycle = shieldDurationCycle;
     }
+
+
+    public Integer getDoubleDamageDurationCycle() {
+        return doubleDamageDurationCycle;
+    }
+
+    public void setDoubleDamageDurationCycle(Integer doubleDamageDurationCycle) {
+        this.doubleDamageDurationCycle = doubleDamageDurationCycle;
+    }
+
 }

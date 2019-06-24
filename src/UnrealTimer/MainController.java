@@ -39,10 +39,6 @@ public class MainController implements HotKeyListener {
     @FXML
     Label ddTimerLabel = new Label();
 
-    public MainController() {
-        initComponents();
-    }
-
     /**
      * Õ¿—“–Œ… »
      * Assign the call this method in SceneBuilder.onAction
@@ -89,6 +85,7 @@ public class MainController implements HotKeyListener {
 
         } else if (isDoubleDamagedKeyPress(key)) {
             // start dd timer
+            startDDTimer();
         }
 
     }
@@ -115,19 +112,37 @@ public class MainController implements HotKeyListener {
         });
     }
 
+    private void startDDTimer() {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Timeline timeline = new Timeline();
+                // restore original value
+                ddRespawnInterval.setValue(settings.getDoubleDamageDurationCycle());
+                // set binding to label
+                ddTimerLabel.textProperty().bind(ddRespawnInterval.asString());
+
+                timeline.getKeyFrames().add(
+                        new KeyFrame(Duration.seconds(settings.getDoubleDamageDurationCycle() + 1),
+                                new KeyValue(ddRespawnInterval, 0)));
+                timeline.playFromStart();
+
+            }
+        });
+    }
+
     private boolean isShieldKeyPress(HotKey hotKey) {
         return hotKey.keyStroke.getKeyCode() == settings.getShieldHotKey().getKeyCode();
     }
 
     private boolean isDoubleDamagedKeyPress(HotKey hotKey) {
-        return hotKey.keyStroke.getKeyCode() == settings.getDoubleDamagedHotKey().getKeyCode();
+        return hotKey.keyStroke.getKeyCode() == settings.getDoubleDamageHotKey().getKeyCode();
     }
 
 
     /**
      * This method combines all necessary initialization
      */
-    private void initComponents() {
+    public void initComponents() {
         loadSettings();
         initTimers();
         initShortcuts();
@@ -141,6 +156,10 @@ public class MainController implements HotKeyListener {
             loadSettings();
         }
         shieldRespawnInterval = new SimpleIntegerProperty(settings.getShieldDurationCycle());
+        shieldTimerLabel.setText(String.format("%02d", shieldRespawnInterval.get()));
+
+        ddRespawnInterval = new SimpleIntegerProperty(settings.getDoubleDamageDurationCycle());
+        ddTimerLabel.setText(String.format("%02d", ddRespawnInterval.get()));
     }
 
     /**
@@ -152,7 +171,7 @@ public class MainController implements HotKeyListener {
         }
         keyShortcutsProvider.reset();
         keyShortcutsProvider.register(KeyStroke.getKeyStroke(settings.getShieldStartShorcut()), this);
-        keyShortcutsProvider.register(KeyStroke.getKeyStroke(settings.getDoubleDamagedStartShorcut()), this);
+        keyShortcutsProvider.register(KeyStroke.getKeyStroke(settings.getDoubleDamageStartShorcut()), this);
     }
 
     /**
