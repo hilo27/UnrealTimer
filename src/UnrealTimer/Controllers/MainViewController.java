@@ -52,10 +52,10 @@ public class MainViewController implements HotKeyListener {
     private void settingsButtonClick(ActionEvent event) {
         System.out.println("settingsButtonClick");
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Frames/settings_window.fxml"));
+            FXMLLoader settingsWindow = new FXMLLoader(getClass().getResource("../Frames/settings_window.fxml"));
+            Parent settings = settingsWindow.load();
             // assign in settings_window tag fx:controller
-            // fxmlLoader.setController(new SettingsViewController());
-            Parent settings = fxmlLoader.load();
+            SettingsViewController controller = settingsWindow.getController();
             Stage stage = new Stage();
             stage.setScene(new Scene(settings, 500, 600));
             stage.show();

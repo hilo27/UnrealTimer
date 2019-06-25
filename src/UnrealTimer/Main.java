@@ -39,10 +39,10 @@ public class Main extends Application {
                 throw new Exception("Undefined key event listener, platform is not supported");
             }
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Frames/main_window.fxml"));
-            Pane root = loader.load();
+            FXMLLoader mainWindow = new FXMLLoader(getClass().getResource("Frames/main_window.fxml"));
+            Pane root = mainWindow.load();
             // controller assign in main_window.fxml tag fx:controller
-            MainViewController controller = loader.getController();
+            MainViewController controller = mainWindow.getController();
             controller.initComponents();
 
             primaryStage.setTitle("Unreal Timer");
