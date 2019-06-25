@@ -1,6 +1,8 @@
 package UnrealTimer;
 // Created by Руслан on 23.06.2019.
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.swing.*;
 
 /**
@@ -17,12 +19,15 @@ public class Settings {
     private KeyStroke doubleDamageHotKey;
     private Integer doubleDamageDurationCycle;
 
+    /**
+     * Init with defaults
+     */
     public Settings() {
         this("Q", "E");
     }
 
     /**
-     * Init with user keys
+     * Init with user keys, but with defaults time intervals
      *
      * @param shieldKey       - key for activating count for Shield <pre>Q</pre>
      * @param doubleDamageKey - key for activating count for Double Damage <pre>E</pre>
@@ -47,11 +52,17 @@ public class Settings {
     }
 
     private void initShieldShorcut(String key) {
+        if (StringUtils.isBlank(key)) {
+            key = "Q";
+        }
         this.shieldStartShorcut = key;
         this.shieldHotKey = KeyStroke.getKeyStroke(key);
     }
 
     private void initDoubleDamageShorcut(String key) {
+        if (StringUtils.isBlank(key)) {
+            key = "E";
+        }
         this.doubleDamageStartShorcut = key;
         this.doubleDamageHotKey = KeyStroke.getKeyStroke(key);
     }

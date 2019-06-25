@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="214.0" prefHeight="316.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnrealTimer.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="214.0" prefHeight="316.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnrealTimer.Controllers.MainViewController">
    <children>
       <Button id="btn_exit" layoutX="94.0" layoutY="270.0" mnemonicParsing="false" onAction="#exitButtonClick" text="Exit" />
       <Label id="shield_timer" fx:id="shieldTimerLabel" alignment="CENTER" layoutX="9.0" layoutY="45.0" prefHeight="64.0" prefWidth="203.0" text="0" textAlignment="CENTER">

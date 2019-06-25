@@ -1,5 +1,6 @@
-package UnrealTimer;
+package UnrealTimer.Controllers;
 
+import UnrealTimer.Settings;
 import com.tulskiy.keymaster.common.HotKey;
 import com.tulskiy.keymaster.common.HotKeyListener;
 import javafx.animation.KeyFrame;
@@ -27,12 +28,15 @@ import static UnrealTimer.Main.keyShortcutsProvider;
  * Action controller for the main window
  */
 @SuppressWarnings("WeakerAccess")
-public class MainController implements HotKeyListener {
-    private static final Logger log = LoggerFactory.getLogger(MainController.class);
-    private Settings settings = null;
+public class MainViewController implements HotKeyListener {
+    private static final Logger log = LoggerFactory.getLogger(MainViewController.class);
+    public Settings settings = null;
 
     IntegerProperty shieldRespawnInterval;
     IntegerProperty ddRespawnInterval;
+
+    Timeline shieldTimer = new Timeline();
+    Timeline ddTimer = new Timeline();
 
     @FXML
     Label shieldTimerLabel = new Label();
@@ -48,9 +52,9 @@ public class MainController implements HotKeyListener {
     private void settingsButtonClick(ActionEvent event) {
         System.out.println("settingsButtonClick");
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("settings_window.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Frames/settings_window.fxml"));
             // assign in settings_window tag fx:controller
-            // fxmlLoader.setController(new SettingsController());
+            // fxmlLoader.setController(new SettingsViewController());
             Parent settings = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(settings, 500, 600));
@@ -91,42 +95,29 @@ public class MainController implements HotKeyListener {
     }
 
     private void startShieldTimer() {
-        Platform.runLater(new Runnable() {
-            public void run() {
-                Timeline timeline = new Timeline();
-                // restore original value
-                shieldRespawnInterval.setValue(settings.getShieldDurationCycle());
-                // set binding to label
-                shieldTimerLabel.textProperty().bind(shieldRespawnInterval.asString());
-
-//                if (shieldRespawnInterval.isEqualTo(5).get()) {
-//                    System.out.println("its 5 sec");
-//                }
-
-                timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.seconds(settings.getShieldDurationCycle() + 1),
-                                new KeyValue(shieldRespawnInterval, 0)));
-                timeline.playFromStart();
-
-            }
+        Platform.runLater(() -> {
+            // restore original value
+            shieldRespawnInterval.setValue(settings.getShieldDurationCycle());
+            // clearing previous keyFrames, to avoid double count and memory leaks
+            shieldTimer.getKeyFrames().clear();
+            // adding fresh keyFrame
+            shieldTimer.getKeyFrames().add(
+                    new KeyFrame(Duration.seconds(settings.getShieldDurationCycle() + 1), new KeyValue(shieldRespawnInterval, 0)));
+            shieldTimer.playFromStart();
         });
     }
 
     private void startDDTimer() {
-        Platform.runLater(new Runnable() {
-            public void run() {
-                Timeline timeline = new Timeline();
-                // restore original value
-                ddRespawnInterval.setValue(settings.getDoubleDamageDurationCycle());
-                // set binding to label
-                ddTimerLabel.textProperty().bind(ddRespawnInterval.asString());
+        Platform.runLater(() -> {
+            // restore original value
+            ddRespawnInterval.setValue(settings.getDoubleDamageDurationCycle());
+            // clearing previous keyFrames, to avoid double count and memory leaks
+            ddTimer.getKeyFrames().clear();
+            // adding fresh keyFrame
+            ddTimer.getKeyFrames().add(
+                    new KeyFrame(Duration.seconds(settings.getDoubleDamageDurationCycle() + 1), new KeyValue(ddRespawnInterval, 0)));
+            ddTimer.playFromStart();
 
-                timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.seconds(settings.getDoubleDamageDurationCycle() + 1),
-                                new KeyValue(ddRespawnInterval, 0)));
-                timeline.playFromStart();
-
-            }
         });
     }
 
@@ -144,22 +135,9 @@ public class MainController implements HotKeyListener {
      */
     public void initComponents() {
         loadSettings();
-        initTimers();
+        initShield();
+        initDoubleDamage();
         initShortcuts();
-    }
-
-    /**
-     * Initialize timers properties
-     */
-    private void initTimers() {
-        if (settings == null) {
-            loadSettings();
-        }
-        shieldRespawnInterval = new SimpleIntegerProperty(settings.getShieldDurationCycle());
-        shieldTimerLabel.setText(String.format("%02d", shieldRespawnInterval.get()));
-
-        ddRespawnInterval = new SimpleIntegerProperty(settings.getDoubleDamageDurationCycle());
-        ddTimerLabel.setText(String.format("%02d", ddRespawnInterval.get()));
     }
 
     /**
@@ -172,6 +150,40 @@ public class MainController implements HotKeyListener {
         keyShortcutsProvider.reset();
         keyShortcutsProvider.register(KeyStroke.getKeyStroke(settings.getShieldStartShorcut()), this);
         keyShortcutsProvider.register(KeyStroke.getKeyStroke(settings.getDoubleDamageStartShorcut()), this);
+    }
+
+    /**
+     * This method initialize shield timer, bind to label and add listener on interval change event
+     */
+    private void initShield() {
+        // duration interval
+        shieldRespawnInterval = new SimpleIntegerProperty(settings.getShieldDurationCycle());
+        // add listener on change value
+        shieldRespawnInterval.addListener((observable, oldValue, newValue) -> {
+            // TODO run in new thread
+            System.out.println(newValue);
+        });
+        // set initial value to the label
+        shieldTimerLabel.setText(String.format("%02d", shieldRespawnInterval.get()));
+        // bind to the label
+        shieldTimerLabel.textProperty().bind(shieldRespawnInterval.asString());
+    }
+
+    /**
+     * This method initialize double damage timer, bind to label and add listener on interval change event
+     */
+    private void initDoubleDamage() {
+        // duration interval
+        ddRespawnInterval = new SimpleIntegerProperty(settings.getDoubleDamageDurationCycle());
+        // add listener on change value
+        ddRespawnInterval.addListener((observable, oldValue, newValue) -> {
+            // TODO run in new thread
+            System.out.println(newValue);
+        });
+        // set initial value to the label
+        ddTimerLabel.setText(String.format("%02d", ddRespawnInterval.get()));
+        // bind to the label
+        ddTimerLabel.textProperty().bind(ddRespawnInterval.asString());
     }
 
     /**

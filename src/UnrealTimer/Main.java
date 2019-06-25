@@ -1,5 +1,6 @@
 package UnrealTimer;
 
+import UnrealTimer.Controllers.MainViewController;
 import com.tulskiy.keymaster.common.Provider;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("WeakerAccess")
 public class Main extends Application {
-    private static final Logger log = LoggerFactory.getLogger(MainController.class);
+    private static final Logger log = LoggerFactory.getLogger(MainViewController.class);
     // https://github.com/tulskiy/jkeymaster
     public static final Provider keyShortcutsProvider = Provider.getCurrentProvider(false);
 
@@ -38,10 +39,10 @@ public class Main extends Application {
                 throw new Exception("Undefined key event listener, platform is not supported");
             }
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("main_window.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Frames/main_window.fxml"));
             Pane root = loader.load();
             // controller assign in main_window.fxml tag fx:controller
-            MainController controller = loader.getController();
+            MainViewController controller = loader.getController();
             controller.initComponents();
 
             primaryStage.setTitle("Unreal Timer");
