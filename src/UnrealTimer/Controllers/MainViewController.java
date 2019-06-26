@@ -20,8 +20,6 @@ import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-
 import static UnrealTimer.Main.keyShortcutsProvider;
 
 /**
@@ -148,8 +146,8 @@ public class MainViewController implements HotKeyListener {
             loadSettings();
         }
         keyShortcutsProvider.reset();
-        keyShortcutsProvider.register(KeyStroke.getKeyStroke(settings.getShieldStartShorcut()), this);
-        keyShortcutsProvider.register(KeyStroke.getKeyStroke(settings.getDoubleDamageStartShorcut()), this);
+        keyShortcutsProvider.register(settings.getShieldHotKey(), this);
+        keyShortcutsProvider.register(settings.getDoubleDamageHotKey(), this);
     }
 
     /**

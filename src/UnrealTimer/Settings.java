@@ -2,25 +2,47 @@ package UnrealTimer;
 // Created by Руслан on 23.06.2019.
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Settings class
  */
 @SuppressWarnings("WeakerAccess")
 public class Settings {
-    // shield
-    private String shieldStartShorcut;
+    private static final Logger log = LoggerFactory.getLogger(Settings.class);
+
     private KeyStroke shieldHotKey;
     private Integer shieldDurationCycle;
-    // double Damage
-    private String doubleDamageStartShorcut;
     private KeyStroke doubleDamageHotKey;
     private Integer doubleDamageDurationCycle;
 
+    public interface ConfigKey {
+        // shortcuts to start timer
+        String SHIELD_START_SHORTCUT = "shield_timer_start_button";
+        String DOUBLE_DAMAGE_START_SHORTCUT = "double_damage_timer_start_button";
+        // respawn intervals
+        String SHIELD_DURATION_CYCLE = "shield_timer_interval";
+        String DOUBLE_DAMAGE_DURATION_CYCLE = "double_damage_timer_interval";
+    }
+
     /**
      * Init with defaults
+     * <pre>
+     *    default key for Shield is Q
+     *    default duration for Shield is 60 sec
+     *
+     *    default key for Double Damage is E
+     *    default duration for Double Damage is 60 sec
+     * </pre>
      */
     public Settings() {
         this("Q", "E");
@@ -28,6 +50,10 @@ public class Settings {
 
     /**
      * Init with user keys, but with defaults time intervals
+     * <pre>
+     *    default duration for Shield is 60 sec
+     *    default duration for Double Damage is 60 sec
+     * </pre>
      *
      * @param shieldKey       - key for activating count for Shield <pre>Q</pre>
      * @param doubleDamageKey - key for activating count for Double Damage <pre>E</pre>
@@ -55,7 +81,6 @@ public class Settings {
         if (StringUtils.isBlank(key)) {
             key = "Q";
         }
-        this.shieldStartShorcut = key;
         this.shieldHotKey = KeyStroke.getKeyStroke(key);
     }
 
@@ -63,24 +88,22 @@ public class Settings {
         if (StringUtils.isBlank(key)) {
             key = "E";
         }
-        this.doubleDamageStartShorcut = key;
         this.doubleDamageHotKey = KeyStroke.getKeyStroke(key);
     }
 
     /**
-     * Method will load saved settings, or default if configuration file not found
+     * Method will load saved settings, or default if configuration file or properties not found
      *
      * <pre>
-     * default key for Shield is Q
-     * default duration for Shield is 60 sec
+     *    default key for Shield is Q
+     *    default duration for Shield is 60 sec
      *
-     * default key for Double Damage is E
-     * default duration for Double Damage is 60 sec
+     *    default key for Double Damage is E
+     *    default duration for Double Damage is 60 sec
      * </pre>
      */
     public Settings load() {
-        // here will be loading from file and some sort of refresh default values
-        return this;
+        return loadedConfiguration();
     }
 
     /**
@@ -88,36 +111,27 @@ public class Settings {
      */
     public Settings save() {
         // save with current assign keys
+        File configFile = new File("config.properties");
+
+        try {
+            Properties props = new Properties();
+            FileWriter writer = new FileWriter(configFile);
+
+            // content of configuration file
+            props.setProperty(ConfigKey.SHIELD_START_SHORTCUT, KeyEvent.getKeyText(shieldHotKey.getKeyCode()));
+            props.setProperty(ConfigKey.DOUBLE_DAMAGE_START_SHORTCUT, KeyEvent.getKeyText(doubleDamageHotKey.getKeyCode()));
+
+            props.setProperty(ConfigKey.SHIELD_DURATION_CYCLE, String.valueOf(shieldDurationCycle));
+            props.setProperty(ConfigKey.DOUBLE_DAMAGE_DURATION_CYCLE, String.valueOf(doubleDamageDurationCycle));
+
+            props.store(writer, null);
+            writer.close();
+
+        } catch (IOException ex) {
+            log.error("Configuration file was not saved", ex);
+        }
+
         return this;
-    }
-
-
-    /**
-     * Return String representation of activation key for Shield timer
-     */
-    public String getShieldStartShorcut() {
-        return shieldStartShorcut;
-    }
-
-    /**
-     * Set String representation of activation key for Shield timer
-     */
-    public void setShieldStartShorcut(String shieldStartShorcut) {
-        this.shieldStartShorcut = shieldStartShorcut;
-    }
-
-    /**
-     * Return String representation of activation key for Double Damage timer
-     */
-    public String getDoubleDamageStartShorcut() {
-        return doubleDamageStartShorcut;
-    }
-
-    /**
-     * Set String representation of activation key for Double Damage timer
-     */
-    public void setDoubleDamageStartShorcut(String doubleDamageStartShorcut) {
-        this.doubleDamageStartShorcut = doubleDamageStartShorcut;
     }
 
     /**
@@ -128,41 +142,55 @@ public class Settings {
     }
 
     /**
-     * Set <code>KeyStroke</code> for Shield timer
-     */
-    public void setShieldHotKey(KeyStroke shieldHotKey) {
-        this.shieldHotKey = shieldHotKey;
-    }
-
-    /**
      * Returns <code>KeyStroke</code> for Double Damage timer
      */
     public KeyStroke getDoubleDamageHotKey() {
         return doubleDamageHotKey;
     }
 
-    /**
-     * Set <code>KeyStroke</code> for Double Damage timer
-     */
-    public void setDoubleDamageHotKey(KeyStroke doubleDamageHotKey) {
-        this.doubleDamageHotKey = doubleDamageHotKey;
-    }
-
     public Integer getShieldDurationCycle() {
         return shieldDurationCycle;
     }
-
-    public void setShieldDurationCycle(Integer shieldDurationCycle) {
-        this.shieldDurationCycle = shieldDurationCycle;
-    }
-
 
     public Integer getDoubleDamageDurationCycle() {
         return doubleDamageDurationCycle;
     }
 
-    public void setDoubleDamageDurationCycle(Integer doubleDamageDurationCycle) {
-        this.doubleDamageDurationCycle = doubleDamageDurationCycle;
+    /**
+     * This method load configuration file and apply it to this instance of settings
+     */
+    private Settings loadedConfiguration() {
+        apply(configFile());
+        return this;
+    }
+
+    /**
+     * This methods return Properties represenation of configuration file
+     */
+    private Properties configFile() {
+        Properties props = new Properties();
+        File configFile = new File("config.properties");
+
+        try {
+            FileReader reader = new FileReader(configFile);
+            props.load(reader);
+            reader.close();
+
+        } catch (IOException e) {
+            log.error("Configuration file was not loaded, fallback to defaults properties", e);
+        }
+
+        return props;
+    }
+
+    /**
+     * This method applies loaded from file configuration to this instance of settings
+     */
+    private void apply(Properties config) {
+        initShieldShorcut(config.getProperty(ConfigKey.SHIELD_START_SHORTCUT));
+        initDoubleDamageShorcut(config.getProperty(ConfigKey.SHIELD_START_SHORTCUT));
+        shieldDurationCycle = Integer.valueOf(config.getProperty(ConfigKey.SHIELD_DURATION_CYCLE, "60"));
+        doubleDamageDurationCycle = Integer.valueOf(config.getProperty(ConfigKey.DOUBLE_DAMAGE_DURATION_CYCLE, "60"));
     }
 
 }
