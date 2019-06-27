@@ -188,7 +188,7 @@ public class Settings {
      */
     private void apply(Properties config) {
         initShieldShorcut(config.getProperty(ConfigKey.SHIELD_START_SHORTCUT));
-        initDoubleDamageShorcut(config.getProperty(ConfigKey.SHIELD_START_SHORTCUT));
+        initDoubleDamageShorcut(config.getProperty(ConfigKey.DOUBLE_DAMAGE_START_SHORTCUT));
         shieldDurationCycle = Integer.valueOf(config.getProperty(ConfigKey.SHIELD_DURATION_CYCLE, "60"));
         doubleDamageDurationCycle = Integer.valueOf(config.getProperty(ConfigKey.DOUBLE_DAMAGE_DURATION_CYCLE, "60"));
     }
