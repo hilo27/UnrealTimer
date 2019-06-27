@@ -55,6 +55,7 @@ public class MainViewController implements HotKeyListener {
             Parent settings = settingsWindow.load();
             // assign in settings_window tag fx:controller
             SettingsViewController controller = settingsWindow.getController();
+            controller.setMainController(this);
             Stage window = new Stage();
             // block other windows
             window.initModality(APPLICATION_MODAL);

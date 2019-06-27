@@ -1,6 +1,7 @@
 package UnrealTimer.Controllers;
 // Created by –ÛÒÎ‡Ì on 24.06.2019.
 
+import UnrealTimer.Settings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +19,8 @@ import java.util.ResourceBundle;
 @SuppressWarnings("WeakerAccess")
 public class SettingsViewController implements Initializable {
     private static final Logger log = LoggerFactory.getLogger(SettingsViewController.class);
+    // main controller
+    MainViewController mainController = null;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -32,6 +35,10 @@ public class SettingsViewController implements Initializable {
 
     }
 
+    public void setMainController(MainViewController mainController) {
+        this.mainController = mainController;
+    }
+
     /**
      * «¿ –€“‹ Œ ÕŒ Õ¿—“–Œ≈ 
      * Assign the call this method in SceneBuilder.onAction
@@ -39,7 +46,11 @@ public class SettingsViewController implements Initializable {
      */
     @FXML
     private void saveButtonClick(ActionEvent event) {
-
+        if (mainController != null) {
+            mainController.settings = new Settings("Y",45, "U", 75).save();
+            mainController.initComponents();
+        }
+        closeStage(event);
     }
 
     /**
