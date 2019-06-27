@@ -165,9 +165,7 @@ public class MainViewController implements HotKeyListener {
             // TODO run in new thread
             System.out.println(newValue);
         });
-        // set initial value to the label
-        shieldTimerLabel.setText(String.format("%02d", shieldRespawnInterval.get()));
-        // bind to the label
+        // bind to the label and because of it there is no need to set initial value
         shieldTimerLabel.textProperty().bind(shieldRespawnInterval.asString());
     }
 
@@ -182,9 +180,7 @@ public class MainViewController implements HotKeyListener {
             // TODO run in new thread
             System.out.println(newValue);
         });
-        // set initial value to the label
-        ddTimerLabel.setText(String.format("%02d", ddRespawnInterval.get()));
-        // bind to the label
+        // bind to the label and because of it there is no need to set initial value
         ddTimerLabel.textProperty().bind(ddRespawnInterval.asString());
     }
 
