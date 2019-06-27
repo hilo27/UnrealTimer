@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -20,6 +21,9 @@ import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import static UnrealTimer.Main.keyShortcutsProvider;
 import static javafx.stage.Modality.APPLICATION_MODAL;
 
@@ -27,12 +31,12 @@ import static javafx.stage.Modality.APPLICATION_MODAL;
  * Action controller for the main window
  */
 @SuppressWarnings("WeakerAccess")
-public class MainViewController implements HotKeyListener {
+public class MainViewController implements HotKeyListener, Initializable {
     private static final Logger log = LoggerFactory.getLogger(MainViewController.class);
     public Settings settings = null;
 
-    IntegerProperty shieldRespawnInterval;
-    IntegerProperty ddRespawnInterval;
+    IntegerProperty shieldRespawnInterval = new SimpleIntegerProperty();
+    IntegerProperty ddRespawnInterval = new SimpleIntegerProperty();
 
     Timeline shieldTimer = new Timeline();
     Timeline ddTimer = new Timeline();
@@ -99,11 +103,9 @@ public class MainViewController implements HotKeyListener {
 
     private void startShieldTimer() {
         Platform.runLater(() -> {
-            // restore original value
-            shieldRespawnInterval.setValue(settings.getShieldDurationCycle());
-            // clearing previous keyFrames, to avoid double count and memory leaks
-            shieldTimer.getKeyFrames().clear();
-            // adding fresh keyFrame
+            // reset shield
+            resetShield();
+            // add fresh keyFrame
             shieldTimer.getKeyFrames().add(
                     new KeyFrame(Duration.seconds(settings.getShieldDurationCycle() + 1), new KeyValue(shieldRespawnInterval, 0)));
             shieldTimer.playFromStart();
@@ -112,11 +114,9 @@ public class MainViewController implements HotKeyListener {
 
     private void startDDTimer() {
         Platform.runLater(() -> {
-            // restore original value
-            ddRespawnInterval.setValue(settings.getDoubleDamageDurationCycle());
-            // clearing previous keyFrames, to avoid double count and memory leaks
-            ddTimer.getKeyFrames().clear();
-            // adding fresh keyFrame
+            // reset dd
+            resetDoubleDamage();
+            // add fresh keyFrame
             ddTimer.getKeyFrames().add(
                     new KeyFrame(Duration.seconds(settings.getDoubleDamageDurationCycle() + 1), new KeyValue(ddRespawnInterval, 0)));
             ddTimer.playFromStart();
@@ -134,13 +134,14 @@ public class MainViewController implements HotKeyListener {
 
 
     /**
-     * This method combines all necessary initialization
+     * This method combines all necessary initialization.
+     * Can be used if settings was changed
      */
     public void initComponents() {
         loadSettings();
-        initShield();
-        initDoubleDamage();
         initShortcuts();
+        resetShield();
+        resetDoubleDamage();
     }
 
     /**
@@ -156,33 +157,23 @@ public class MainViewController implements HotKeyListener {
     }
 
     /**
-     * This method initialize shield timer, bind to label and add listener on interval change event
+     * This method reset shield timer, to the settings value
      */
-    private void initShield() {
-        // duration interval
-        shieldRespawnInterval = new SimpleIntegerProperty(settings.getShieldDurationCycle());
-        // add listener on change value
-        shieldRespawnInterval.addListener((observable, oldValue, newValue) -> {
-            // TODO run in new thread
-            System.out.println(newValue);
-        });
-        // bind to the label and because of it there is no need to set initial value
-        shieldTimerLabel.textProperty().bind(shieldRespawnInterval.asString());
+    private void resetShield() {
+        // clearing previously added keyFrames, to avoid double count or memory leaks
+        shieldTimer.getKeyFrames().clear();
+        // restore original duration interval
+        shieldRespawnInterval.setValue(settings.getShieldDurationCycle());
     }
 
     /**
-     * This method initialize double damage timer, bind to label and add listener on interval change event
+     * This method reset double damage timer, to the settings value
      */
-    private void initDoubleDamage() {
-        // duration interval
-        ddRespawnInterval = new SimpleIntegerProperty(settings.getDoubleDamageDurationCycle());
-        // add listener on change value
-        ddRespawnInterval.addListener((observable, oldValue, newValue) -> {
-            // TODO run in new thread
-            System.out.println(newValue);
-        });
-        // bind to the label and because of it there is no need to set initial value
-        ddTimerLabel.textProperty().bind(ddRespawnInterval.asString());
+    private void resetDoubleDamage() {
+        // clearing previously added keyFrames, to avoid double count or memory leaks
+        ddTimer.getKeyFrames().clear();
+        // restore original duration interval
+        ddRespawnInterval.setValue(settings.getDoubleDamageDurationCycle());
     }
 
     /**
@@ -190,5 +181,43 @@ public class MainViewController implements HotKeyListener {
      */
     private void loadSettings() {
         settings = new Settings().load();
+    }
+
+    /**
+     * Called to initialize a controller after its root element has been completely processed.
+     * Add listeners on change value of intervals and bind them to the lables
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        bindVales();
+        addListeners();
+    }
+
+    /**
+     * Bind intervals value to the labels
+     */
+    private void bindVales() {
+        shieldTimerLabel.textProperty().bind(shieldRespawnInterval.asString());
+        ddTimerLabel.textProperty().bind(ddRespawnInterval.asString());
+    }
+
+
+    /**
+     * Add listener on change value of intervals
+     */
+    private void addListeners() {
+        shieldRespawnInterval.addListener((observable, oldValue, newValue) -> {
+            // TODO run in new thread
+            System.out.println(newValue);
+        });
+        ddRespawnInterval.addListener((observable, oldValue, newValue) -> {
+            // TODO run in new thread
+            System.out.println(newValue);
+        });
+
     }
 }
