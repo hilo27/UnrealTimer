@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static UnrealTimer.Main.keyShortcutsProvider;
+import static javafx.stage.Modality.APPLICATION_MODAL;
 
 /**
  * Action controller for the main window
@@ -54,9 +55,12 @@ public class MainViewController implements HotKeyListener {
             Parent settings = settingsWindow.load();
             // assign in settings_window tag fx:controller
             SettingsViewController controller = settingsWindow.getController();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(settings, 500, 600));
-            stage.show();
+            Stage window = new Stage();
+            // block other windows
+            window.initModality(APPLICATION_MODAL);
+            window.setResizable(false);
+            window.setScene(new Scene(settings, 203, 309));
+            window.showAndWait();
 
         } catch (Exception e) {
             log.error("Cannot create settings window.", e);

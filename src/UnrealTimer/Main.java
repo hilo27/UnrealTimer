@@ -47,7 +47,7 @@ public class Main extends Application {
 
             primaryStage.setTitle("Unreal Timer");
             primaryStage.setResizable(false);
-            primaryStage.setScene(new Scene(root, 225, 330));
+            primaryStage.setScene(new Scene(root, 173, 281));
             primaryStage.show();
 
         } catch (Exception e) {
