@@ -4,39 +4,35 @@ package UnrealTimer.Controllers;
 import UnrealTimer.Settings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * Action controller for the settings window
  */
 @SuppressWarnings("WeakerAccess")
-public class SettingsViewController implements Initializable {
+public class SettingsViewController {
     private static final Logger log = LoggerFactory.getLogger(SettingsViewController.class);
     // main controller
     MainViewController mainController = null;
 
     /**
-     * Called to initialize a controller after its root element has been
-     * completely processed.
+     * Set main view controller, so that later to be able to call his methods
+     * Also initialize value for the form
      *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     * @param mainController - <code>{@link MainViewController}</code>
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    public void setMainController(MainViewController mainController) {
+        initData(mainController);
     }
 
-    public void setMainController(MainViewController mainController) {
-        this.mainController = mainController;
+    private void initData(MainViewController mainController) {
+        if (mainController != null) {
+            this.mainController = mainController;
+            System.out.println("init");
+        }
     }
 
     /**
@@ -47,7 +43,7 @@ public class SettingsViewController implements Initializable {
     @FXML
     private void saveButtonClick(ActionEvent event) {
         if (mainController != null) {
-            mainController.settings = new Settings("Y",45, "U", 75).save();
+            mainController.settings = new Settings("Y", 45, "U", 75).save();
             mainController.initComponents();
         }
         closeStage(event);

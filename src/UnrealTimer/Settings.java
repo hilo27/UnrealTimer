@@ -135,14 +135,14 @@ public class Settings {
     }
 
     /**
-     * Returns <code>KeyStroke</code> for Shield timer
+     * Returns <code>{@link KeyStroke}</code> for Shield timer
      */
     public KeyStroke getShieldHotKey() {
         return shieldHotKey;
     }
 
     /**
-     * Returns <code>KeyStroke</code> for Double Damage timer
+     * Returns <code>{@link KeyStroke}</code> for Double Damage timer
      */
     public KeyStroke getDoubleDamageHotKey() {
         return doubleDamageHotKey;
