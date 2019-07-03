@@ -58,8 +58,8 @@ public class MainViewController implements HotKeyListener, Initializable {
             FXMLLoader settingsWindow = new FXMLLoader(getClass().getResource("../Frames/settings_window.fxml"));
             Parent settings = settingsWindow.load();
             // assign in settings_window tag fx:controller
-            SettingsViewController controller = settingsWindow.getController();
-            controller.setMainController(this);
+            SettingsViewController settingsController = settingsWindow.getController();
+            settingsController.initData(this);
             Stage window = new Stage();
             // block other windows
             window.initModality(APPLICATION_MODAL);
@@ -107,7 +107,7 @@ public class MainViewController implements HotKeyListener, Initializable {
             resetShield();
             // add fresh keyFrame
             shieldTimer.getKeyFrames().add(
-                    new KeyFrame(Duration.seconds(settings.getShieldDurationCycle() + 1), new KeyValue(shieldRespawnInterval, 0)));
+                    new KeyFrame(Duration.seconds(settings.getShieldDurationInterval() + 1), new KeyValue(shieldRespawnInterval, 0)));
             shieldTimer.playFromStart();
         });
     }
@@ -118,7 +118,7 @@ public class MainViewController implements HotKeyListener, Initializable {
             resetDoubleDamage();
             // add fresh keyFrame
             ddTimer.getKeyFrames().add(
-                    new KeyFrame(Duration.seconds(settings.getDoubleDamageDurationCycle() + 1), new KeyValue(ddRespawnInterval, 0)));
+                    new KeyFrame(Duration.seconds(settings.getDoubleDamageDurationInterval() + 1), new KeyValue(ddRespawnInterval, 0)));
             ddTimer.playFromStart();
 
         });
@@ -163,7 +163,7 @@ public class MainViewController implements HotKeyListener, Initializable {
         // clearing previously added keyFrames, to avoid double count or memory leaks
         shieldTimer.getKeyFrames().clear();
         // restore original duration interval
-        shieldRespawnInterval.setValue(settings.getShieldDurationCycle());
+        shieldRespawnInterval.setValue(settings.getShieldDurationInterval());
     }
 
     /**
@@ -173,7 +173,7 @@ public class MainViewController implements HotKeyListener, Initializable {
         // clearing previously added keyFrames, to avoid double count or memory leaks
         ddTimer.getKeyFrames().clear();
         // restore original duration interval
-        ddRespawnInterval.setValue(settings.getDoubleDamageDurationCycle());
+        ddRespawnInterval.setValue(settings.getDoubleDamageDurationInterval());
     }
 
     /**

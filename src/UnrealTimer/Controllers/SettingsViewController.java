@@ -5,9 +5,12 @@ import UnrealTimer.Settings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.awt.event.KeyEvent;
 
 /**
  * Action controller for the settings window
@@ -15,24 +18,46 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("WeakerAccess")
 public class SettingsViewController {
     private static final Logger log = LoggerFactory.getLogger(SettingsViewController.class);
-    // main controller
-    MainViewController mainController = null;
+    // main controller object
+    private MainViewController mainController = null;
+    private Settings currentSettings;
+
+    // SHIELD FIELDS
+    @FXML
+    TextField inputShieldButton = new TextField();
+    @FXML
+    TextField inputShieldInterval = new TextField();
+
+    // DOUBLE DAMAGE FIELDS
+    @FXML
+    TextField inputDDButton = new TextField();
+    @FXML
+    TextField inputDDInterval = new TextField();
 
     /**
-     * Set main view controller, so that later to be able to call his methods
+     * Set main view controller, and put current config in form fields
      * Also initialize value for the form
      *
      * @param mainController - <code>{@link MainViewController}</code>
      */
-    public void setMainController(MainViewController mainController) {
-        initData(mainController);
-    }
-
-    private void initData(MainViewController mainController) {
+    public void initData(MainViewController mainController) {
         if (mainController != null) {
             this.mainController = mainController;
-            System.out.println("init");
+            this.currentSettings = mainController.settings;
+            populateForm();
         }
+    }
+
+    /**
+     * Filling the settings window with the current configuration
+     */
+    private void populateForm() {
+        // set key
+        inputShieldButton.setText(KeyEvent.getKeyText(currentSettings.getShieldHotKey().getKeyCode()));
+        inputDDButton.setText(KeyEvent.getKeyText(currentSettings.getDoubleDamageHotKey().getKeyCode()));
+        // set intervals
+        inputShieldInterval.setText(String.valueOf(currentSettings.getShieldDurationInterval()));
+        inputDDInterval.setText(String.valueOf(currentSettings.getDoubleDamageDurationInterval()));
     }
 
     /**
@@ -43,7 +68,7 @@ public class SettingsViewController {
     @FXML
     private void saveButtonClick(ActionEvent event) {
         if (mainController != null) {
-            mainController.settings = new Settings("Y", 45, "U", 75).save();
+            currentSettings = new Settings("Y", 45, "U", 75).save();
             mainController.initComponents();
         }
         closeStage(event);

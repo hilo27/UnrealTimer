@@ -21,17 +21,17 @@ public class Settings {
     private static final Logger log = LoggerFactory.getLogger(Settings.class);
 
     private KeyStroke shieldHotKey;
-    private Integer shieldDurationCycle;
+    private Integer shieldDurationInterval;
     private KeyStroke doubleDamageHotKey;
-    private Integer doubleDamageDurationCycle;
+    private Integer doubleDamageDurationInterval;
 
     public interface ConfigKey {
         // shortcuts to start timer
         String SHIELD_START_SHORTCUT = "shield_timer_start_button";
         String DOUBLE_DAMAGE_START_SHORTCUT = "double_damage_timer_start_button";
         // respawn intervals
-        String SHIELD_DURATION_CYCLE = "shield_timer_interval";
-        String DOUBLE_DAMAGE_DURATION_CYCLE = "double_damage_timer_interval";
+        String SHIELD_DURATION_INTERVAL = "shield_timer_interval";
+        String DOUBLE_DAMAGE_DURATION_INTERVAL = "double_damage_timer_interval";
     }
 
     /**
@@ -66,15 +66,15 @@ public class Settings {
      * Init with user keys and timers
      *
      * @param shieldKey         - key for activating count for Shield <pre>Q</pre>
-     * @param shieldCycle       - this is the time before shield respawn <pre>60</pre>
+     * @param shieldInterval       - this is the time before shield respawn <pre>60</pre>
      * @param doubleDamageKey   - key for activating count for Double Damage <pre>E</pre>
-     * @param doubleDamageCycle - this is the time before shield respawn <pre>60</pre>
+     * @param doubleDamageInterval - this is the time before shield respawn <pre>60</pre>
      */
-    public Settings(String shieldKey, Integer shieldCycle, String doubleDamageKey, Integer doubleDamageCycle) {
+    public Settings(String shieldKey, Integer shieldInterval, String doubleDamageKey, Integer doubleDamageInterval) {
         initShieldShorcut(shieldKey);
         initDoubleDamageShorcut(doubleDamageKey);
-        this.shieldDurationCycle = shieldCycle;
-        this.doubleDamageDurationCycle = doubleDamageCycle;
+        this.shieldDurationInterval = shieldInterval;
+        this.doubleDamageDurationInterval = doubleDamageInterval;
     }
 
     private void initShieldShorcut(String key) {
@@ -121,8 +121,8 @@ public class Settings {
             props.setProperty(ConfigKey.SHIELD_START_SHORTCUT, KeyEvent.getKeyText(shieldHotKey.getKeyCode()));
             props.setProperty(ConfigKey.DOUBLE_DAMAGE_START_SHORTCUT, KeyEvent.getKeyText(doubleDamageHotKey.getKeyCode()));
 
-            props.setProperty(ConfigKey.SHIELD_DURATION_CYCLE, String.valueOf(shieldDurationCycle));
-            props.setProperty(ConfigKey.DOUBLE_DAMAGE_DURATION_CYCLE, String.valueOf(doubleDamageDurationCycle));
+            props.setProperty(ConfigKey.SHIELD_DURATION_INTERVAL, String.valueOf(shieldDurationInterval));
+            props.setProperty(ConfigKey.DOUBLE_DAMAGE_DURATION_INTERVAL, String.valueOf(doubleDamageDurationInterval));
 
             props.store(writer, null);
             writer.close();
@@ -148,12 +148,12 @@ public class Settings {
         return doubleDamageHotKey;
     }
 
-    public Integer getShieldDurationCycle() {
-        return shieldDurationCycle;
+    public Integer getShieldDurationInterval() {
+        return shieldDurationInterval;
     }
 
-    public Integer getDoubleDamageDurationCycle() {
-        return doubleDamageDurationCycle;
+    public Integer getDoubleDamageDurationInterval() {
+        return doubleDamageDurationInterval;
     }
 
     /**
@@ -189,8 +189,8 @@ public class Settings {
     private void apply(Properties config) {
         initShieldShorcut(config.getProperty(ConfigKey.SHIELD_START_SHORTCUT));
         initDoubleDamageShorcut(config.getProperty(ConfigKey.DOUBLE_DAMAGE_START_SHORTCUT));
-        shieldDurationCycle = Integer.valueOf(config.getProperty(ConfigKey.SHIELD_DURATION_CYCLE, "60"));
-        doubleDamageDurationCycle = Integer.valueOf(config.getProperty(ConfigKey.DOUBLE_DAMAGE_DURATION_CYCLE, "60"));
+        shieldDurationInterval = Integer.valueOf(config.getProperty(ConfigKey.SHIELD_DURATION_INTERVAL, "60"));
+        doubleDamageDurationInterval = Integer.valueOf(config.getProperty(ConfigKey.DOUBLE_DAMAGE_DURATION_INTERVAL, "60"));
     }
 
 }

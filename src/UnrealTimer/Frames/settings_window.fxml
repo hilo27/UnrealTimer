@@ -10,8 +10,8 @@
         <content>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="95.0" prefWidth="180.0">
                <children>
-                  <TextField id="shield_button" layoutX="124.0" layoutY="13.0" prefHeight="25.0" prefWidth="41.0" />
-                  <TextField id="shield" layoutX="124.0" layoutY="56.0" prefHeight="25.0" prefWidth="41.0" />
+                  <TextField fx:id="inputShieldButton" id="inputShieldButton" layoutX="124.0" layoutY="13.0" prefHeight="25.0" prefWidth="41.0" />
+                  <TextField fx:id="inputShieldInterval" id="inputShieldRespawnInterval" layoutX="124.0" layoutY="56.0" prefHeight="25.0" prefWidth="41.0" />
                   <Label layoutX="15.0" layoutY="17.0" text="Activation button" textAlignment="RIGHT" />
                   <Label layoutX="15.0" layoutY="60.0" text="Respawn interval" textAlignment="RIGHT" />
                </children>
@@ -22,8 +22,8 @@
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="95.0" prefWidth="180.0">
                <children>
-                  <TextField id="dd_button" layoutX="124.0" layoutY="13.0" prefHeight="25.0" prefWidth="41.0" />
-                  <TextField id="ddInterval" layoutX="124.0" layoutY="56.0" prefHeight="25.0" prefWidth="41.0" />
+                  <TextField fx:id="inputDDButton" id="inputDDButton" layoutX="124.0" layoutY="13.0" prefHeight="25.0" prefWidth="41.0" />
+                  <TextField fx:id="inputDDInterval" id="inputDDInterval" layoutX="124.0" layoutY="56.0" prefHeight="25.0" prefWidth="41.0" />
                   <Label layoutX="15.0" layoutY="17.0" text="Activation button" textAlignment="RIGHT" />
                   <Label layoutX="15.0" layoutY="60.0" text="Respawn interval" textAlignment="RIGHT" />
                </children>
