@@ -65,9 +65,9 @@ public class Settings {
     /**
      * Init with user keys and timers
      *
-     * @param shieldKey         - key for activating count for Shield <pre>Q</pre>
+     * @param shieldKey            - key for activating count for Shield <pre>Q</pre>
      * @param shieldInterval       - this is the time before shield respawn <pre>60</pre>
-     * @param doubleDamageKey   - key for activating count for Double Damage <pre>E</pre>
+     * @param doubleDamageKey      - key for activating count for Double Damage <pre>E</pre>
      * @param doubleDamageInterval - this is the time before shield respawn <pre>60</pre>
      */
     public Settings(String shieldKey, Integer shieldInterval, String doubleDamageKey, Integer doubleDamageInterval) {
@@ -78,14 +78,16 @@ public class Settings {
     }
 
     private void initShieldShorcut(String key) {
-        if (StringUtils.isBlank(key)) {
+        if (StringUtils.isBlank(key) ||  KeyStroke.getKeyStroke(key) == null) {
+            log.warn("Wrong key code. Reset to default Q");
             key = "Q";
         }
         this.shieldHotKey = KeyStroke.getKeyStroke(key);
     }
 
     private void initDoubleDamageShorcut(String key) {
-        if (StringUtils.isBlank(key)) {
+        if (StringUtils.isBlank(key) ||  KeyStroke.getKeyStroke(key) == null) {
+            log.warn("Wrong key code. Reset to default E");
             key = "E";
         }
         this.doubleDamageHotKey = KeyStroke.getKeyStroke(key);
@@ -158,9 +160,15 @@ public class Settings {
 
     /**
      * This method load configuration file and apply it to this instance of settings
+     * If any problems occurs the default config will be returned
      */
     private Settings loadedConfiguration() {
-        apply(configFile());
+        try {
+            apply(configFile());
+        } catch (Exception anyException) {
+            log.error("Incorrect configuration file. Fallback to default", anyException);
+            return new Settings();
+        }
         return this;
     }
 
