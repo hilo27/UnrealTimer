@@ -1,5 +1,5 @@
 package UnrealTimer;
-// Created by Руслан on 23.06.2019.
+// Created by Р СѓСЃР»Р°РЅ on 23.06.2019.
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

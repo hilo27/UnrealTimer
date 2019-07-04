@@ -1,5 +1,5 @@
 package UnrealTimer;
-// Created by Руслан on 04.07.2019.
+// Created by Р СѓСЃР»Р°РЅ on 04.07.2019.
 
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;

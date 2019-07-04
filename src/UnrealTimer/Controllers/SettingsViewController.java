@@ -1,5 +1,5 @@
 package UnrealTimer.Controllers;
-// Created by –ÛÒÎ‡Ì on 24.06.2019.
+// Created by –†—É—Å–ª–∞–Ω on 24.06.2019.
 
 import UnrealTimer.KeyListener;
 import UnrealTimer.Settings;
@@ -106,7 +106,7 @@ public class SettingsViewController {
     }
 
     /**
-     * —Œ’–¿Õ»“‹ Õ¿—“–Œ… »
+     * –°–û–•–†–ê–ù–ò–¢–¨ –ù–ê–°–¢–†–û–ô–ö–ò
      * Assign the call this method in SceneBuilder.onAction
      * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ButtonBase.html#getOnAction--
      */
@@ -120,7 +120,7 @@ public class SettingsViewController {
     }
 
     /**
-     * «¿ –€“‹ Œ ÕŒ Õ¿—“–Œ≈ 
+     * –ó–ê–ö–†–´–¢–¨ –û–ö–ù–û –ù–ê–°–¢–†–û–ï–ö
      * Assign the call this method in SceneBuilder.onAction
      * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ButtonBase.html#getOnAction--
      */
