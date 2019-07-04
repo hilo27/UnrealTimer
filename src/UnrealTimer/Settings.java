@@ -78,7 +78,7 @@ public class Settings {
     }
 
     private void initShieldShorcut(String key) {
-        if (StringUtils.isBlank(key) ||  KeyStroke.getKeyStroke(key) == null) {
+        if (StringUtils.isBlank(key) || KeyStroke.getKeyStroke(key) == null) {
             log.warn("Wrong key code. Reset to default Q");
             key = "Q";
         }
@@ -86,7 +86,7 @@ public class Settings {
     }
 
     private void initDoubleDamageShorcut(String key) {
-        if (StringUtils.isBlank(key) ||  KeyStroke.getKeyStroke(key) == null) {
+        if (StringUtils.isBlank(key) || KeyStroke.getKeyStroke(key) == null) {
             log.warn("Wrong key code. Reset to default E");
             key = "E";
         }

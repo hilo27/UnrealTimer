@@ -47,7 +47,7 @@ public class MainViewController implements HotKeyListener, Initializable {
     Label ddTimerLabel = new Label();
 
     /**
-     * Õ¿—“–Œ… »
+     * ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
      * Assign the call this method in SceneBuilder.onAction
      * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ButtonBase.html#getOnAction--
      */
@@ -73,7 +73,7 @@ public class MainViewController implements HotKeyListener, Initializable {
     }
 
     /**
-     * ¬€’Œƒ
+     * ÔøΩÔøΩÔøΩÔøΩÔøΩ
      * Assign the call this method in SceneBuilder.onAction
      * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ButtonBase.html#getOnAction--
      */
@@ -211,11 +211,11 @@ public class MainViewController implements HotKeyListener, Initializable {
      */
     private void addListeners() {
         shieldRespawnInterval.addListener((observable, oldValue, newValue) -> {
-            // TODO run in new thread
+            // TODO(–†—É—Å–ª–∞–Ω): run in new thread
             System.out.println(newValue);
         });
         ddRespawnInterval.addListener((observable, oldValue, newValue) -> {
-            // TODO run in new thread
+            // TODO(–†—É—Å–ª–∞–Ω): run in new thread
             System.out.println(newValue);
         });
 
