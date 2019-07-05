@@ -47,7 +47,7 @@ public class MainViewController implements HotKeyListener, Initializable {
     Label ddTimerLabel = new Label();
 
     /**
-     * ���������
+     * OPEN SETTINGS WINDOW
      * Assign the call this method in SceneBuilder.onAction
      * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ButtonBase.html#getOnAction--
      */
@@ -55,7 +55,7 @@ public class MainViewController implements HotKeyListener, Initializable {
     private void settingsButtonClick(ActionEvent event) {
         System.out.println("settingsButtonClick");
         try {
-            FXMLLoader settingsWindow = new FXMLLoader(getClass().getResource("../Frames/settings_window.fxml"));
+            FXMLLoader settingsWindow = new FXMLLoader(getClass().getResource("/UnrealTimer/Frames/settings_window.fxml"));
             Parent settings = settingsWindow.load();
             // assign in settings_window tag fx:controller
             SettingsViewController settingsController = settingsWindow.getController();
@@ -73,7 +73,7 @@ public class MainViewController implements HotKeyListener, Initializable {
     }
 
     /**
-     * �����
+     * EXIT
      * Assign the call this method in SceneBuilder.onAction
      * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ButtonBase.html#getOnAction--
      */

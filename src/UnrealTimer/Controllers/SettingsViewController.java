@@ -106,7 +106,7 @@ public class SettingsViewController {
     }
 
     /**
-     * СОХРАНИТЬ НАСТРОЙКИ
+     * SAVE SETTINGS
      * Assign the call this method in SceneBuilder.onAction
      * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ButtonBase.html#getOnAction--
      */
@@ -120,7 +120,7 @@ public class SettingsViewController {
     }
 
     /**
-     * ЗАКРЫТЬ ОКНО НАСТРОЕК
+     * CLOSE SETTINGS WINDOW
      * Assign the call this method in SceneBuilder.onAction
      * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ButtonBase.html#getOnAction--
      */
@@ -130,7 +130,7 @@ public class SettingsViewController {
     }
 
     /**
-     * Close settings window
+     * Close window
      */
     private void closeStage(ActionEvent event) {
         Node source = (Node) event.getSource();

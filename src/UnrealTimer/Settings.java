@@ -114,6 +114,7 @@ public class Settings {
     public Settings save() {
         // save with current assign keys
         File configFile = new File("config.properties");
+        log.info("Settings wil be saved in {}", configFile.getAbsoluteFile().getPath());
 
         try {
             Properties props = new Properties();
