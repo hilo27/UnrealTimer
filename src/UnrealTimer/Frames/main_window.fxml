@@ -5,19 +5,19 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="281.0" minWidth="173.0" prefHeight="281.0" prefWidth="173.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnrealTimer.Controllers.MainViewController">
    <children>
-      <Button id="btn_exit" layoutX="108.0" layoutY="236.0" mnemonicParsing="false" onAction="#exitButtonClick" text="Exit" />
-      <Label id="shield_timer" fx:id="shieldTimerLabel" alignment="CENTER" layoutX="9.0" layoutY="45.0" prefHeight="64.0" prefWidth="143.0" text="0" textAlignment="CENTER">
+      <Button id="btn_exit" layoutX="107.0" layoutY="239.0" mnemonicParsing="false" onAction="#exitButtonClick" text="Exit" />
+      <Label id="shield_timer" fx:id="shieldTimerLabel" alignment="CENTER" layoutX="16.0" layoutY="45.0" prefHeight="64.0" prefWidth="143.0" text="0" textAlignment="CENTER">
          <font>
             <Font size="41.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="43.0" layoutY="28.0" text="Time to Shield" textAlignment="CENTER" />
-      <Label alignment="CENTER" layoutX="3.0" layoutY="137.0" prefHeight="17.0" prefWidth="166.0" text="Time to DoubleDamage" textAlignment="CENTER" />
-      <Label id="dd_timer" fx:id="ddTimerLabel" alignment="CENTER" layoutX="14.0" layoutY="154.0" prefHeight="64.0" prefWidth="143.0" text="0" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="44.0" layoutY="28.0" text="Time to Shield" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="4.0" layoutY="137.0" prefHeight="17.0" prefWidth="166.0" text="Time to DoubleDamage" textAlignment="CENTER" />
+      <Label id="dd_timer" fx:id="ddTimerLabel" alignment="CENTER" layoutX="18.0" layoutY="154.0" prefHeight="64.0" prefWidth="143.0" text="0" textAlignment="CENTER">
          <font>
             <Font size="41.0" />
          </font>
       </Label>
-      <Button id="btn_exit" layoutX="33.0" layoutY="236.0" mnemonicParsing="false" onAction="#settingsButtonClick" text="Settings" />
+      <Button id="btn_exit" layoutX="23.0" layoutY="239.0" mnemonicParsing="false" onAction="#settingsButtonClick" text="Settings" />
    </children>
 </AnchorPane>

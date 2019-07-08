@@ -2,16 +2,16 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="309.0" prefWidth="203.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnrealTimer.Controllers.SettingsViewController">
+<AnchorPane prefHeight="321.0" prefWidth="210.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnrealTimer.Controllers.SettingsViewController">
    <children>
-      <Button fx:id="btn_save" layoutX="86.0" layoutY="274.0" mnemonicParsing="false" onAction="#saveButtonClick" text="Save" />
-      <Button fx:id="btn_cancel" layoutX="136.0" layoutY="274.0" mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" />
+      <Button fx:id="btn_save" layoutX="69.0" layoutY="281.0" mnemonicParsing="false" onAction="#saveButtonClick" text="Save" />
+      <Button fx:id="btn_cancel" layoutX="128.0" layoutY="281.0" mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" />
       <TitledPane animated="false" collapsible="false" layoutX="10.0" layoutY="11.0" text="SHIELD">
         <content>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="95.0" prefWidth="180.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="95.0" prefWidth="186.0">
                <children>
-                  <TextField id="inputShieldButton" fx:id="inputShieldButton" editable="false" layoutX="124.0" layoutY="13.0" prefHeight="25.0" prefWidth="41.0" />
-                  <TextField id="inputShieldRespawnInterval" fx:id="inputShieldInterval" layoutX="124.0" layoutY="56.0" prefHeight="25.0" prefWidth="41.0" />
+                  <TextField id="inputShieldButton" fx:id="inputShieldButton" editable="false" layoutX="139.0" layoutY="11.0" prefHeight="25.0" prefWidth="41.0" />
+                  <TextField id="inputShieldRespawnInterval" fx:id="inputShieldInterval" layoutX="139.0" layoutY="55.0" prefHeight="25.0" prefWidth="41.0" />
                   <Label layoutX="15.0" layoutY="17.0" text="Activation button" textAlignment="RIGHT" />
                   <Label layoutX="15.0" layoutY="60.0" text="Respawn interval" textAlignment="RIGHT" />
                </children>
@@ -20,10 +20,10 @@
       </TitledPane>
       <TitledPane animated="false" collapsible="false" layoutX="10.0" layoutY="144.0" text="DOUBLE DAMAGE">
          <content>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="95.0" prefWidth="180.0">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="95.0" prefWidth="186.0">
                <children>
-                  <TextField id="inputDDButton" fx:id="inputDDButton" editable="false" layoutX="124.0" layoutY="13.0" prefHeight="25.0" prefWidth="41.0" />
-                  <TextField id="inputDDInterval" fx:id="inputDDInterval" layoutX="124.0" layoutY="56.0" prefHeight="25.0" prefWidth="41.0" />
+                  <TextField id="inputDDButton" fx:id="inputDDButton" editable="false" layoutX="139.0" layoutY="12.0" prefHeight="25.0" prefWidth="41.0" />
+                  <TextField id="inputDDInterval" fx:id="inputDDInterval" layoutX="139.0" layoutY="56.0" prefHeight="25.0" prefWidth="41.0" />
                   <Label layoutX="15.0" layoutY="17.0" text="Activation button" textAlignment="RIGHT" />
                   <Label layoutX="15.0" layoutY="60.0" text="Respawn interval" textAlignment="RIGHT" />
                </children>

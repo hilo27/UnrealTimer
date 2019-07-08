@@ -1,6 +1,7 @@
 package UnrealTimer.Controllers;
 
 import UnrealTimer.Settings;
+import UnrealTimer.Sound;
 import com.tulskiy.keymaster.common.HotKey;
 import com.tulskiy.keymaster.common.HotKeyListener;
 import javafx.animation.KeyFrame;
@@ -211,12 +212,39 @@ public class MainViewController implements HotKeyListener, Initializable {
      */
     private void addListeners() {
         shieldRespawnInterval.addListener((observable, oldValue, newValue) -> {
-            // TODO(Руслан): run in new thread
             System.out.println(newValue);
+            if (newValue.intValue() == 20) {
+                Sound.Female.TWENTY.play();
+            } else if (newValue.intValue() == 10) {
+                Sound.Female.TEN.play();
+            } else if (newValue.intValue() == 5) {
+                Sound.Female.FIVE.play();
+            } else if (newValue.intValue() == 4) {
+                Sound.Female.FOUR.play();
+            } else if (newValue.intValue() == 3) {
+                Sound.Female.THREE.play();
+            } else if (newValue.intValue() == 2) {
+                Sound.Female.TWO.play();
+            } else if (newValue.intValue() == 1) {
+                Sound.Female.ONE.play();
+            }
         });
         ddRespawnInterval.addListener((observable, oldValue, newValue) -> {
-            // TODO(Руслан): run in new thread
-            System.out.println(newValue);
+            if (newValue.intValue() == 20) {
+                Sound.Male.TWENTY.play();
+            }else if (newValue.intValue() == 10) {
+                Sound.Male.TEN.play();
+            } else if (newValue.intValue() == 5) {
+                Sound.Male.FIVE.play();
+            } else if (newValue.intValue() == 4) {
+                Sound.Male.FOUR.play();
+            } else if (newValue.intValue() == 3) {
+                Sound.Male.THREE.play();
+            } else if (newValue.intValue() == 2) {
+                Sound.Male.TWO.play();
+            } else if (newValue.intValue() == 1) {
+                Sound.Male.ONE.play();
+            }
         });
 
     }
