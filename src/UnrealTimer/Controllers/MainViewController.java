@@ -42,6 +42,11 @@ public class MainViewController implements HotKeyListener, Initializable {
     Timeline shieldTimer = new Timeline();
     Timeline ddTimer = new Timeline();
 
+    // this flag in case when shield timer set on one of the that trigger sound play
+    Boolean playShieldSound;
+    // this flag in case when double damage timer set on one of the that trigger sound play
+    Boolean playDDSound;
+
     @FXML
     Label shieldTimerLabel = new Label();
     @FXML
@@ -182,6 +187,9 @@ public class MainViewController implements HotKeyListener, Initializable {
      */
     private void loadSettings() {
         settings = new Settings().load();
+
+        playShieldSound = false;
+        playDDSound = false;
     }
 
     /**
@@ -212,40 +220,66 @@ public class MainViewController implements HotKeyListener, Initializable {
      */
     private void addListeners() {
         shieldRespawnInterval.addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue);
-            if (newValue.intValue() == 20) {
-                Sound.Female.TWENTY.play();
-            } else if (newValue.intValue() == 10) {
-                Sound.Female.TEN.play();
-            } else if (newValue.intValue() == 5) {
-                Sound.Female.FIVE.play();
-            } else if (newValue.intValue() == 4) {
-                Sound.Female.FOUR.play();
-            } else if (newValue.intValue() == 3) {
-                Sound.Female.THREE.play();
-            } else if (newValue.intValue() == 2) {
-                Sound.Female.TWO.play();
-            } else if (newValue.intValue() == 1) {
-                Sound.Female.ONE.play();
-            }
-        });
-        ddRespawnInterval.addListener((observable, oldValue, newValue) -> {
-            if (newValue.intValue() == 20) {
-                Sound.Male.TWENTY.play();
-            }else if (newValue.intValue() == 10) {
-                Sound.Male.TEN.play();
-            } else if (newValue.intValue() == 5) {
-                Sound.Male.FIVE.play();
-            } else if (newValue.intValue() == 4) {
-                Sound.Male.FOUR.play();
-            } else if (newValue.intValue() == 3) {
-                Sound.Male.THREE.play();
-            } else if (newValue.intValue() == 2) {
-                Sound.Male.TWO.play();
-            } else if (newValue.intValue() == 1) {
-                Sound.Male.ONE.play();
+            if (playShieldSound) {
+                playFemaleSound(newValue);
+            } else {
+                playShieldSound = true;
             }
         });
 
+        ddRespawnInterval.addListener((observable, oldValue, newValue) -> {
+            if (playDDSound) {
+                playMaleSound(newValue);
+            } else {
+                playDDSound = true;
+
+            }
+        });
+    }
+
+    /**
+     * This method play male sound at specific number
+     *
+     * @param value - timer value
+     */
+    private void playMaleSound(Number value) {
+        if (value.intValue() == 20) {
+            Sound.Male.TWENTY.play();
+        } else if (value.intValue() == 10) {
+            Sound.Male.TEN.play();
+        } else if (value.intValue() == 5) {
+            Sound.Male.FIVE.play();
+        } else if (value.intValue() == 4) {
+            Sound.Male.FOUR.play();
+        } else if (value.intValue() == 3) {
+            Sound.Male.THREE.play();
+        } else if (value.intValue() == 2) {
+            Sound.Male.TWO.play();
+        } else if (value.intValue() == 1) {
+            Sound.Male.ONE.play();
+        }
+    }
+
+    /**
+     * This method play female sound at specific number
+     *
+     * @param value - timer value
+     */
+    private void playFemaleSound(Number value) {
+        if (value.intValue() == 20) {
+            Sound.Female.TWENTY.play();
+        } else if (value.intValue() == 10) {
+            Sound.Female.TEN.play();
+        } else if (value.intValue() == 5) {
+            Sound.Female.FIVE.play();
+        } else if (value.intValue() == 4) {
+            Sound.Female.FOUR.play();
+        } else if (value.intValue() == 3) {
+            Sound.Female.THREE.play();
+        } else if (value.intValue() == 2) {
+            Sound.Female.TWO.play();
+        } else if (value.intValue() == 1) {
+            Sound.Female.ONE.play();
+        }
     }
 }
